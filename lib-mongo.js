@@ -5,13 +5,12 @@ const { config } = require('./config');
 const USER = encodeURIComponent(config.dbUser)
 const PASSWORD = encodeURIComponent(config.dbPassword)
 const DB_NAME = config.dbName;
-
-const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${config.dbHost}/${DB_NAME}?retryWrites=true&w=majority`
-
+const MONGO_URI= `mongodb+srv://db_user_osmar:osmarMolina1@cluster0.hplgd.mongodb.net/test?authSource=admin&replicaSet=atlas-al8329-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true`
+//const MONGO_URI = `mongodb+srv://${USER}:${PASSWORD}@${config.dbHost}/${DB_NAME}?retryWrites=true&w=majority`
 
 class MongoLib {
   constructor() {
-    this.client = new MongoClient(MONGO_URI, { useNewUrlParser:true, useUnifiedTopology:true });
+    this.client = new MongoClient(MONGO_URI, { useNewUrlParser:true, });
     this.dbName = DB_NAME
   }
 
@@ -20,10 +19,12 @@ class MongoLib {
       MongoLib.connection = new Promise((resolve, reject) => {
         this.client.connect(err => {
           if (err) {
+            console.log(err)
             reject(err)
           }
           console.log('Connected succesfully to mongo')
           resolve(this.client.db(this.dbName))
+          console.log(err)
         })
       })
     }
@@ -31,7 +32,7 @@ class MongoLib {
   }
   getAll(collection, query) {
     return this.connect().then(db => {
-        return db().collection(collection).find(query).toArray()})
+        return db.collection(collection).find(query).toArray()})
   }
 
   get(collection, id) {
