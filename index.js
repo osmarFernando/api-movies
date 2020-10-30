@@ -1,8 +1,8 @@
 const express = require("express")
 const app = express()
 
-const {config} = require("./config")
-const moviesApi = require("./routes")
+const {config} = require("./config/config")
+const moviesApi = require("./routes/routes")
 app.use(express.json())
 
 moviesApi(app)
