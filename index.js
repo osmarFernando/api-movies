@@ -7,4 +7,10 @@ app.use(express.json())
 
 moviesApi(app)
 
-app.listen(config.port, () => console.log(`listened in port: ${config.port}`))
+//app.listen(config.port, () => console.log(`listened in port: ${config.port}`),
+//console.log(config.enviroment))
+
+app.listen(config.port, () => {
+    console.log(config.enviroment)
+    console.log(`listened in port: ${config.port}`)
+})

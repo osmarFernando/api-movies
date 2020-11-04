@@ -183,6 +183,7 @@ $RECYCLE.BIN/
 #api-movies
 .env
 node_modules
+package-lock.json
 
 # Windows shortcuts
 *.lnk

@@ -1,8 +1,9 @@
 const MongoLib = require("../lib/lib-mongo")
+const uuid = require("uuid")
 
 class MoviesServices{
     constructor(){
-        this.collection = "movies"
+        this.collection = "movie"
         this.mongoDB = new MongoLib()
     }
     async getMovies({tags}){
@@ -14,16 +15,16 @@ class MoviesServices{
         const movie = await this.mongoDB.get(this.collection, movieId)
         return movie || {}
     }
-    async createMovie({movie}){
-        const createMoviesId = await this.mongoDB.create(this.collection, movie)
-        return createMoviesId
+    async createMovie({movie, uuid}){
+        const createMovieId = await this.mongoDB.create(this.collection, movie ).then(result => result.insertedId)
+        return createMovieId
     }
     async updateMovie({movieId , movie} = {}){
         const updateMovie = await this.mongoDB.update(this.collection, movieId, movie)
         return updateMovie
     }
     async deletedMovies({movieId}){
-        const deletedMoviesID = await this.mongoDB.delete(this.collection, movieId)
+        const deletedMoviesId = await this.mongoDB.delete(this.collection, movieId)
         return deletedMoviesId
     }
 }
