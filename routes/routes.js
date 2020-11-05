@@ -1,6 +1,7 @@
 
 const express = require("express")
 const MoviesServices = require("../services/services")
+const uuid = require("uuid")
 
 function moviesApi(app) {
     const router = express.Router()
@@ -11,7 +12,7 @@ function moviesApi(app) {
     router.get("/", async (req, res, next) => {const {tags} = req.query
         try {
             const movies = await moviesServices.getMovies({tags})
-            res.status(200).json({data: movies, mesagge: "movies listed"})
+            res.status(200).json({data: movies,mesagge: "movies listed"})
         } catch (err) {
             next(err)}})
 
@@ -26,10 +27,14 @@ function moviesApi(app) {
     })
 
     router.post("/", async (req, res, next) => {
-        const {body: movie} = req
+        const {body: movie } = req
+        
         try {
             const createdMovieId = await moviesServices.createMovie({movie})
-            res.status(201).json({data: createdMovieId, mesagge: "movie created "})
+            res.status(201).json({
+                data: createdMovieId,
+
+                mesagge: "movie created "})
         } catch (err) {
             next(err)
         }

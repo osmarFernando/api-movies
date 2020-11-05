@@ -15,12 +15,13 @@ class MoviesServices{
         const movie = await this.mongoDB.get(this.collection, movieId)
         return movie || {}
     }
-    async createMovie({movie, uuid}){
-        const createMovieId = await this.mongoDB.create(this.collection, movie ).then(result => result.insertedId)
+    async createMovie({movie}){
+        const createMovieId = await this.mongoDB.create(this.collection, movie)
+        .then(result => result.insertedId)
         return createMovieId
     }
     async updateMovie({movieId , movie} = {}){
-        const updateMovie = await this.mongoDB.update(this.collection, movieId, movie)
+        const updateMovie = await this.mongoDB.update(this.collection, movie)
         return updateMovie
     }
     async deletedMovies({movieId}){
