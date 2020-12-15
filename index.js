@@ -4,6 +4,7 @@ const app = express()
 const {config} = require("./config/config")
 const moviesApi = require("./routes/routes")
 app.use(express.json())
+app.use("/api/movies", router)
 
 moviesApi(app)
 

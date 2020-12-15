@@ -6,22 +6,21 @@ class MoviesServices{
         this.collection = "movie"
         this.mongoDB = new MongoLib()
     }
-    async getMovies({tags}){
-        const query = tags && {tags: {$in: tags}}
-        const movies = await this.mongoDB.getAll(this.collection, query)
+    async getMovies(){
+        const movies = await this.mongoDB.getAll(this.collection)
         return movies || []
     }
     async getMovie({movieId}){
         const movie = await this.mongoDB.get(this.collection, movieId)
-        return movie || {}
+        return movie
     }
     async createMovie({movie}){
         const createMovieId = await this.mongoDB.create(this.collection, movie)
-        .then(result => result.insertedId)
         return createMovieId
     }
-    async updateMovie({movieId , movie} = {}){
-        const updateMovie = await this.mongoDB.update(this.collection, movie)
+    async updateMovie({movieId, movie} = {}){
+        console.log(movie)
+        const updateMovie = await this.mongoDB.update(this.collection, movieId ,movie)
         return updateMovie
     }
     async deletedMovies({movieId}){
