@@ -9,7 +9,7 @@ function moviesApi(app) {
     const moviesServices = new MoviesServices()
     router.get("/", async (req, res, next) => {
         try { 
-            console.log("change")
+            console.log("hello")
             const movies = await moviesServices.getMovies()
             for(let item of movies){
                 delete item._id
